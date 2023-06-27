@@ -4,9 +4,9 @@ const low     = require('lowdb');
 const fs      = require('lowdb/adapters/FileSync');
 const adapter = new fs('db.json');
 const db      = low(adapter);
+const PORT    = process.env.PORT || 3009
+const path    = require("path")
 const cors    = require('cors');
-const PORT = process.env.PORT || 3009
-const path = require("path")
 const { faker } = require('@faker-js/faker');
 
 // allow cross-origin resource sharing (CORS)
@@ -30,9 +30,16 @@ app.get('/data', function(req, res){
 });
 
 app.get('/', function(req, res){     
-    res.sendFile(path.join(__dirname, "index.html"))
+    res.sendFile(path.join(__dirname, "public", "index.html" ));
 });
 
+console.log("----------")
+console.log(__dirname)
+console.log("----------")
+
+app.get('/adduser', function(req, res){     
+    res.sendFile(path.join(__dirname, "public", "addUser.html" ));
+});
 // add user
 app.post('/add', function(req, res){
     var user = {
